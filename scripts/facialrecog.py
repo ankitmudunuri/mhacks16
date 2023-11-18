@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+import overlaymesh as om
 
 def video_stream():
     vid = cv.VideoCapture(0)
@@ -13,12 +14,14 @@ def video_stream():
         for (x, y, w, h) in face:
             cv.rectangle(framedata, (x,y), (x + w, y + h), (0, 255, 0), 4)
 
-        return framedata
+        return framedata, face
 
     while True:
         ret, frame = vid.read()
 
-        rgbimage = convert_data(frame, face_classifier)
+        rgbimage, coords = convert_data(frame, face_classifier)
+
+        rgbimage = om.OverlayMesh(rgbimage, coords)
 
         cv.imshow("frame", rgbimage)
 
