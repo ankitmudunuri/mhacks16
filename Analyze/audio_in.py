@@ -7,15 +7,6 @@ from google.cloud import speech
 
 
 
-def authenticate_implicit_with_adc(project_id= "REPLACE WITH EMAIL"):
-    storage_client = storage.Client(project=project_id)
-    buckets = storage_client.list_buckets()
-    print("Buckets:")
-    for bucket in buckets:
-        print(bucket.name)
-    print("Listed all storage buckets.")
-
-
 # Audio recording parameters
 RATE = 16000
 CHUNK = int(RATE / 10)  # 100ms
@@ -214,4 +205,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    # authenticate_implicit_with_adc()
     main()
