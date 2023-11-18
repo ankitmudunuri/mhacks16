@@ -28,4 +28,5 @@ def video_stream():
     vid.release()
     cv.destroyAllWindows()
 
-
+if __name__ == "__main__":
+    video_stream()
