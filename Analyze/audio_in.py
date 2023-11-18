@@ -1,11 +1,20 @@
-
 import queue
 import re
 import sys
-
+import pyaudio
+from google.cloud import storage
 from google.cloud import speech
 
-import pyaudio
+
+
+def authenticate_implicit_with_adc(project_id= "REPLACE WITH EMAIL"):
+    storage_client = storage.Client(project=project_id)
+    buckets = storage_client.list_buckets()
+    print("Buckets:")
+    for bucket in buckets:
+        print(bucket.name)
+    print("Listed all storage buckets.")
+
 
 # Audio recording parameters
 RATE = 16000
