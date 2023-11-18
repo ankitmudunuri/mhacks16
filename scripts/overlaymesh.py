@@ -19,6 +19,6 @@ def SpeechForBox(q, char_limit):
 
 def OverlayMesh(frame, coords):
     for (x, y, w, h) in coords:
-        frame = cv.rectangle(frame, (x+w, int(y+(h/2))), (x+w + 200, int(y+(h/2)+200)), (36,255,12), 1)
+       # frame = cv.rectangle(frame, (x+w, int(y+(h/2))), (x+w + 200, int(y+(h/2)+200)), (36,255,12), 1)
         cv.putText(frame, 'Hello', ((x+w) + 100, int((y+(h/2))+100)), cv.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
     return frame
