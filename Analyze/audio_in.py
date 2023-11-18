@@ -132,46 +132,58 @@ def listen_print_loop(responses: object) -> str:
     Returns:
         The transcribed text.
     """
-    num_chars_printed = 0
+    
+    count = 100
+    check = 0
     for response in responses:
-        if not response.results:
-            continue
+        print(response.results[0].alternatives[0].transcript)
+        check += 1
+        if check == count:
+            break
+    
+    
+    
+    
+    # num_chars_printed = 0
+    # for response in responses:
+    #     if not response.results:
+    #         continue
 
-        # The `results` list is consecutive. For streaming, we only care about
-        # the first result being considered, since once it's `is_final`, it
-        # moves on to considering the next utterance.
-        result = response.results[0]
-        if not result.alternatives:
-            continue
+    #     # The `results` list is consecutive. For streaming, we only care about
+    #     # the first result being considered, since once it's `is_final`, it
+    #     # moves on to considering the next utterance.
+    #     result = response.results[0]
+    #     if not result.alternatives:
+    #         continue
 
-        # Display the transcription of the top alternative.
-        transcript = result.alternatives[0].transcript
+    #     # Display the transcription of the top alternative.
+    #     transcript = result.alternatives[0].transcript
 
-        # Display interim results, but with a carriage return at the end of the
-        # line, so subsequent lines will overwrite them.
-        #
-        # If the previous result was longer than this one, we need to print
-        # some extra spaces to overwrite the previous result
-        overwrite_chars = " " * (num_chars_printed - len(transcript))
+    #     # Display interim results, but with a carriage return at the end of the
+    #     # line, so subsequent lines will overwrite them.
+    #     #
+    #     # If the previous result was longer than this one, we need to print
+    #     # some extra spaces to overwrite the previous result
+    #     overwrite_chars = " " * (num_chars_printed - len(transcript))
 
-        if not result.is_final:
-            sys.stdout.write(transcript + overwrite_chars + "\r")
-            sys.stdout.flush()
+    #     if not result.is_final:
+    #         sys.stdout.write(transcript + overwrite_chars + "\r")
+    #         sys.stdout.flush()
 
-            num_chars_printed = len(transcript)
+    #         num_chars_printed = len(transcript)
 
-        else:
-            print(transcript + overwrite_chars)
+    #     else:
+    #         print(transcript + overwrite_chars)
 
-            # Exit recognition if any of the transcribed phrases could be
-            # one of our keywords.
-            if re.search(r"\b(exit|quit)\b", transcript, re.I):
-                print("Exiting..")
-                break
+    #         # Exit recognition if any of the transcribed phrases could be
+    #         # one of our keywords.
+    #         if re.search(r"\b(exit|quit)\b", transcript, re.I):
+    #             print("Exiting..")
+    #             break
 
-            num_chars_printed = 0
+    #         num_chars_printed = 0
 
-        return transcript
+    #     return transcript
 
 
 def main() -> None:
