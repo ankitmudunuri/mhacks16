@@ -16,12 +16,14 @@ def video_stream():
 
         return framedata, face
 
+    p_bottom = True
+
     while True:
         ret, frame = vid.read()
 
         rgbimage, coords = convert_data(frame, face_classifier)
 
-        rgbimage = om.OverlayMesh(rgbimage, coords)
+        rgbimage, p_bottom = om.OverlayMesh(rgbimage, coords, p_bottom)
 
         cv.imshow("frame", rgbimage)
 
