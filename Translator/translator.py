@@ -12,10 +12,16 @@ def enqueue(q: queue.Queue, text: str) -> None:
     q.put(text)
     
     
-def main(q:queue.Queue()) -> None:
-    phrase = a_in.main()
-    enqueue(q, languager(phrase))
-    return q
+def main(q:queue.Queue(), on:bool) -> None:
+    newqueue = queue.Queue()
+    while True:
+        if not on:
+            break
+        else:
+            newqueue = languager(q.get())
+            phrase = q.get()
+            newqueue = languager(phrase)
+            return newqueue
 
         
     
