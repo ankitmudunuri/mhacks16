@@ -1,8 +1,10 @@
 from googletrans import Translator
 import queue
-import audio_in.py as a_in
+import sys
+path = __file__.replace("/Translator/translator.py", "/Analyze")
+sys.path.append(path)
 import config as cfg
-
+import audio_in as a_in
 
 def languager(text: str) -> str:
     translator = Translator()
