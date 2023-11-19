@@ -1,12 +1,12 @@
 import cv2 as cv
 import numpy as np
-import scripts.overlaymesh as om
+import overlaymesh as om
 import datetime as dt
 
 def video_stream():
     vid = cv.VideoCapture(0)
 
-    face_classifier = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_frontalface_default.xml")
+    face_classifier = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_frontalface_alt.xml")
 
     def convert_data(framedata, classifier):
         gray = cv.cvtColor(framedata, cv.COLOR_BGR2GRAY)
