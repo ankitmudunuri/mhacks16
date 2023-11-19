@@ -1,19 +1,19 @@
-import pandas as pd
+import Analyze.audio_in as a_in
+import scripts.facialrecog as f_rec
 
-text = pd.Series
-
-def main():
-    # Thread 1
-    # Gets the audio, translates it to text, and translates the text
-    # Returns the text
-
-
-    # Thread 2
-    # Gets the video and Finds the face
-    # Returns the location of the face
+# Thread 1
+# Gets the audio, translates it to text, and translates the text
+# Returns the text
+phrase = a_in.main()
 
 
-    # Creates a grid alongside the video
-    # Prints the text at the location of the face
+# Thread 2
+# 
 
-    print ("temporary text teehee")
+# Thread 3
+# Gets the video and Finds the face
+# Creates a grid alongside the video
+# Prints the text at the location of the face
+f_rec.video_stream()
+
+print(phrase)
