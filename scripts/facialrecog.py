@@ -12,8 +12,8 @@ def video_stream():
         gray = cv.cvtColor(framedata, cv.COLOR_BGR2GRAY)
         face = classifier.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=9, minSize=(40,40))
 
-        for (x, y, w, h) in face:
-            cv.rectangle(framedata, (x,y), (x + w, y + h), (0, 255, 0), 4)
+       # for (x, y, w, h) in face:
+        #    cv.rectangle(framedata, (x,y), (x + w, y + h), (0, 255, 0), 4)
 
         return framedata, face
 
