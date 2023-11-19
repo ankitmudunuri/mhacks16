@@ -115,14 +115,8 @@ class MicrophoneStream:
 def listen_print_loop(responses: object, ThreadQueue: queue.Queue()) -> str:
     """Iterates through server responses and prints them.
     """
-    
-    count = 100
-    check = 0
     for response in responses:
         ThreadQueue.put(response.results[0].alternatives[0].transcript)
-        check += 1
-        if check == count:
-            break
     
 
 def main(ThreadedQueue: queue.Queue()) -> None:
