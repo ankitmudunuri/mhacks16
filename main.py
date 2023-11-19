@@ -45,7 +45,7 @@ def main():
         ret, frame = vid.read()
         if not ttq.empty():
             now = datetime.datetime.now()
-            if (now - start_time).microseconds > 50000:
+            if (now - start_time).microseconds > 500000:
                 text = str(ttq.get())
                 print(abs(length - len(text.split(" "))))
                 print("^first")
@@ -54,7 +54,7 @@ def main():
                 if len(text.split(" ")) > 6 and abs(length - len(text.split(" "))) >= 1 and len(text) != 0:
                     text = text.split(" ")
                     length = len(text)
-                    text = " ".join(text[-6:])
+                    text = " ".join(text[6:])
                     
                     
                 start_time = datetime.datetime.now()

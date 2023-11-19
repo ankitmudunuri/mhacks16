@@ -1,2 +1,8 @@
 cv2==4.8.1.78
 tensorflow
+datetime
+googletrans 
+queue
+sys
+google.cloud
+overlaymesh 

@@ -10,7 +10,7 @@ def video_stream(frame, OnSwitch: bool, text, p_bottom, cs, out_of_frame, start_
     :return: Active video stream with translated text output tracking user's face
     """
     
-    face_classifier = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_frontalface_alt.xml")
+    face_classifier = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_frontalface_alt2.xml")
 
     def convert_data(framedata, classifier):
         """
@@ -24,7 +24,7 @@ def video_stream(frame, OnSwitch: bool, text, p_bottom, cs, out_of_frame, start_
         face = classifier.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=9, minSize=(40,40))
 
     # comment back in to show face tracking box on video output
-        #for (x, y, w, h) in face:
+        # for (x, y, w, h) in face:
         #    cv.rectangle(framedata, (x,y), (x + w, y + h), (0, 255, 0), 3)
         return framedata, face
 

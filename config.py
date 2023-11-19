@@ -1,9 +1,9 @@
 translator_languages = {
-    'init_lang': 'en',
-    'dest_lang': 'es',
+    'init_lang': 'es',
+    'dest_lang': 'en',
 }
 
 audio_in_languages = {
-    'init_lang': 'en',
-    'dest_lang': 'en',
+    'init_lang': 'es',
+    'dest_lang': 'es',
 }
