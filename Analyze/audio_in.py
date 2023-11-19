@@ -151,8 +151,8 @@ def main(ThreadedQueue: queue.Queue()) -> None:
 
         responses = client.streaming_recognize(streaming_config, requests)
 
-        # Now, put the transcription responses to use.
         listen_print_loop(responses, ThreadedQueue)
+
 
 
 if __name__ == "__main__":
