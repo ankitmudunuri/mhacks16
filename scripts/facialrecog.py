@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-import overlaymesh as om
+import scripts.overlaymesh as om
 
 def video_stream():
     vid = cv.VideoCapture(0)
