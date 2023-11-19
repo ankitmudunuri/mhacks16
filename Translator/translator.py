@@ -15,13 +15,10 @@ def languager(text: str) -> str:
 
     
     
-def main(old_q:queue.Queue(), newqueue:queue.Queue(), on:bool) -> None:
+def main(old_q:queue.Queue(), newqueue:queue.Queue()) -> None:
     while True:
-        if not on:
-            break
-        else:
-            phrase = old_q.get()
-            newqueue.put(languager(phrase))
+        phrase = old_q.get()
+        newqueue.put(languager(phrase))
         
         
 

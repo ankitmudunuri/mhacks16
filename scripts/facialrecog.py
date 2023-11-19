@@ -2,15 +2,14 @@ import cv2 as cv
 import numpy as np
 import overlaymesh as om
 import datetime as dt
+import queue
 
-def video_stream():
+def video_stream(vid,tq: queue.Queue(), OnSwitch: bool):
     """
     Creates a video stream using openCV
     :return: Active video stream with translated text output tracking user's face
     """
-
-    vid = cv.VideoCapture(0)
-
+    
     face_classifier = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_frontalface_alt.xml")
 
     def convert_data(framedata, classifier):
@@ -43,9 +42,13 @@ def video_stream():
         ret, frame = vid.read() # reads in video frame
 
         rgbimage, coords = convert_data(frame, face_classifier)
+        
+        text = "huh"
+        if not tq.empty():
+            text = tq.get()
 
         # creates frame data necessary for facial tracking and text output box location
-        rgbimage, p_bottom, cs, out_of_frame, start_time = om.OverlayMesh(rgbimage, coords, p_bottom, cs, out_of_frame, start_time)
+        rgbimage, p_bottom, cs, out_of_frame, start_time = om.OverlayMesh(rgbimage, coords, p_bottom, cs, out_of_frame, start_time, text, OnSwitch)
 
         cv.imshow("frame", rgbimage)
 
@@ -57,4 +60,5 @@ def video_stream():
     cv.destroyAllWindows()
 
 if __name__ == "__main__":
+
     video_stream()

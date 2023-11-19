@@ -150,4 +150,5 @@ def main(ThreadedQueue: queue.Queue()) -> None:
 
 
 if __name__ == "__main__":
-    main()
+    tq = queue.Queue()
+    main(tq)
