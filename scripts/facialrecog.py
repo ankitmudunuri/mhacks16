@@ -4,12 +4,11 @@ import overlaymesh as om
 import datetime as dt
 import queue
 
-def video_stream(tq: queue.Queue(), OnSwitch: bool):
+def video_stream(frame, OnSwitch: bool, text, p_bottom, cs, out_of_frame, start_time):
     """
     Creates a video stream using openCV
     :return: Active video stream with translated text output tracking user's face
     """
-    vid = cv.VideoCapture(0)
     
     face_classifier = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_frontalface_alt.xml")
 
@@ -25,8 +24,8 @@ def video_stream(tq: queue.Queue(), OnSwitch: bool):
         face = classifier.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=9, minSize=(40,40))
 
     # comment back in to show face tracking box on video output
-    # for (x, y, w, h) in face:
-    #    cv.rectangle(framedata, (x,y), (x + w, y + h), (0, 255, 0), 4)
+        #for (x, y, w, h) in face:
+        #    cv.rectangle(framedata, (x,y), (x + w, y + h), (0, 255, 0), 3)
         return framedata, face
 
     # variables that set a standard text location, which updates only if
@@ -38,28 +37,26 @@ def video_stream(tq: queue.Queue(), OnSwitch: bool):
     out_of_frame = False
     start_time = dt.datetime.now()
 
-    # continuous output video stream
-    while True:
-        ret, frame = vid.read() # reads in video frame
+    # continuous output video stream 
+    # # reads in video frame
+    rgbimage = frame
 
-        rgbimage, coords = convert_data(frame, face_classifier)
-        
-        text = "huh"
-        if not tq.empty():
-            text = tq.get()
-
-        # creates frame data necessary for facial tracking and text output box location
-        rgbimage, p_bottom, cs, out_of_frame, start_time = om.OverlayMesh(rgbimage, coords, p_bottom, cs, out_of_frame, start_time, text, OnSwitch)
-
-        cv.imshow("frame", rgbimage)
-
-        # exits video stream if user enters 'q'
-        if cv.waitKey(1) == ord('q'):
-            break
+    rgbimage, coords = convert_data(frame, face_classifier)
+            
     
-    vid.release()
-    cv.destroyAllWindows()
+
+    # creates frame data necessary for facial tracking and text output box location
+    rgbimage, p_bottom, cs, out_of_frame, start_time = om.OverlayMesh(rgbimage, coords, p_bottom, cs, out_of_frame, start_time, text, OnSwitch)
+
+    cv.imshow("frame", rgbimage)
+
+    # exits video stream if user enters 'q'
 
 if __name__ == "__main__":
-
-    video_stream()
+    vid = cv.VideoCapture(0)
+    q = queue.Queue()
+    while True:
+        ret, frame = vid.read()
+        video_stream(frame, q, True)
+        if cv.waitKey(1) & 0xFF == ord('q'):
+            break

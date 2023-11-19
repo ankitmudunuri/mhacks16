@@ -1,11 +1,12 @@
 import queue as Queue
 import cv2 as cv
 import datetime as dt
+from PIL import ImageFont, ImageDraw, Image
 
 # Variables related to output text
-RGB_TUPLE = (0,0,0)
+RGB_TUPLE = (255,0,0)
 FONT_CHOICE = cv.FONT_HERSHEY_SIMPLEX
-FONT_SCALE = 1.1
+FONT_SCALE = 0.9
 FONT_THICKNESS = 2
 
 def SpeechForBox(q, char_limit):
@@ -57,7 +58,7 @@ def OverlayMesh(frame, coords, p_bottom, cs, out_of_frame, start_time, text, OnS
                 p_bottom = True
 
             # true if current face box location is outside of offset box
-            if (x > (cs[0] + 10) or x < (cs[0] - 10)) or (y > (cs[1] + 10) or y < (cs[1] - 10)):
+            if (x > (cs[0] + cs[2] + 10) or x < (cs[0] + cs[2] - 10)) or (y > (cs[1] + 10) or y < (cs[1] - 10)):
                 out_of_frame = True
                 
                 if out_of_frame:
@@ -69,35 +70,35 @@ def OverlayMesh(frame, coords, p_bottom, cs, out_of_frame, start_time, text, OnS
                         start_time = dt.datetime.now()
 
                         if p_bottom: # for all similar (4 other) if/else in function - checks p_bottom to print text above/below user face
-                            cv.putText(frame, text, (int((cs[0])/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
+                            cv.putText(frame, text, (int((cs[0] + cs[2] - 10)/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                         else:
-                            cv.putText(frame, text, (int((cs[0])/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
+                            cv.putText(frame, text, (int((cs[0] + cs[2] - 10)/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
 
                     else:
                         if p_bottom:
-                            cv.putText(frame, text, (int((cs[0])/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
+                            cv.putText(frame, text, (int((cs[0] + cs[2] - 10)/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                         else:
-                            cv.putText(frame, text, (int((cs[0])/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
+                            cv.putText(frame, text, (int((cs[0] + cs[2] - 10)/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
 
                 else:
                     start_time = dt.datetime.now()
                     if p_bottom:
-                        cv.putText(frame, text, (int((cs[0])/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
+                        cv.putText(frame, text, (int((cs[0] + cs[2] - 10)/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                     else:
-                        cv.putText(frame, text, (int((cs[0])/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
+                        cv.putText(frame, text, (int((cs[0] + cs[2] - 10)/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                     out_of_frame = False
 
             else:
                 if p_bottom:
-                    cv.putText(frame, text, (int((cs[0])/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
+                    cv.putText(frame, text, (int((cs[0] + cs[2] - 10)/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                 else:
-                    cv.putText(frame, text, (int((cs[0])/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
+                    cv.putText(frame, text, (int((cs[0] + cs[2] - 10)/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                 out_of_frame = False
 
     else: # if no face box detected, provides text box using most recent text box coordinate state
         if p_bottom:
-            cv.putText(frame, text, (int((cs[0])/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
+            cv.putText(frame, text, (int((cs[0] + cs[2] - 10)/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
         else:
-            cv.putText(frame, text, (int((cs[0])/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
+            cv.putText(frame, text, (int((cs[0] + cs[2] - 10)/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
     
     return frame, p_bottom, cs, out_of_frame, start_time

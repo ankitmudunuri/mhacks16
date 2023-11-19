@@ -26,26 +26,41 @@ def main():
     # t2 = Text Translation
     t2 = Thread(target=translate.main, args=(atq,ttq))
     # t3 = Overlay Mesh Map
-    time.sleep(5)
-    t3 = Thread(target=f_rec.video_stream, args=(ttq,OnSwitch))
+    frameq = Queue()
+    #t3 = Thread(target=f_rec.video_stream, args=(ttq,frameq, OnSwitch))
     t1.start()
     t2.start()
-    t3.start()
+    #t3.start()
     
-    start = datetime.datetime.now()
+    vid = cv.VideoCapture(0)
+    now = datetime.datetime.now()
+    text = ""
+    p_bottom = True
+    cs = [0, 0, 320, 240]
+    out_of_frame = False
+    start_time = datetime.datetime.now()
+    length = 0
     
     while True:
-        end = datetime.datetime.now()
-        if end - start > datetime.timedelta(seconds=5):
-            OnSwitch = False
-        if end - start > datetime.timedelta(seconds=10):
-            OnSwitch = True
-        if end - start > datetime.timedelta(seconds=15):
-            break
-    
-    t1.join()
-    t2.join()
-    t3.join()
+        ret, frame = vid.read()
+        if not ttq.empty():
+            now = datetime.datetime.now()
+            if (now - start_time).microseconds > 50000:
+                text = str(ttq.get())
+                print(text)
+                if len(text.split(" ")) > 6 and abs(length - len(text.split(" "))) >= 1 and len(text) != 0:
+                    text = text.split(" ")
+                    length = len(text)
+                    text = " ".join(text[-6:0])
+                    
+                start_time = datetime.datetime.now()
+            else:
+                pass
+        f_rec.video_stream(frame, True, text, p_bottom, cs, out_of_frame, start_time)
+        if cv.waitKey(1) & 0xFF == ord('q'):
+            vid.release()
+            cv.destroyAllWindows()
+            sys.exit(0)
 
    
 
@@ -53,6 +68,5 @@ def main():
     # Gets the video and Finds the face
     # Creates a grid alongside the video
     # Prints the text at the location of the face
-    f_rec.video_stream()
 
 main()

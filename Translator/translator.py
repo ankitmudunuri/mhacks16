@@ -18,7 +18,10 @@ def languager(text: str) -> str:
 def main(old_q:queue.Queue(), newqueue:queue.Queue()) -> None:
     while True:
         phrase = old_q.get()
-        newqueue.put(languager(phrase))
+        if phrase:
+            newqueue.put(languager(phrase))
+        else:
+            newqueue.put("")
         
         
 
