@@ -12,15 +12,21 @@ def main():
     # Returns the text
     # AudioTextQueue = ATQ
     ATQ = Queue()
+    # TranslatedTextQueue = TTQ
+    TTQ = Queue()
+    OnSwitch = False
     T1 = Thread(target=a_in.main(), args=(ATQ,))
-    T2 = Thread(target=)
+    T2 = Thread(target=translate.main(), args=(ATQ,TTQ,OnSwitch))
     # Thread 2
-    # 
+    while True:
+        if not TTQ.empty():
+            print(TTQ.get())
+        
+        if kb.is_pressed("q"):
+            break
 
     # Thread 3
     # Gets the video and Finds the face
     # Creates a grid alongside the video
     # Prints the text at the location of the face
     f_rec.video_stream()
-
-    print(phrase)
