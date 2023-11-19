@@ -1,5 +1,9 @@
-import googletrans as g
+from googletrans import Translator
 
+translator = Translator()
 
-cur_lang = 'en'
-target_lang = input("Enter target language: ")
+s = ("right and when were in legendary was all their stuff too")
+s.encode(encoding='utf-8')
+
+x = translator.translate(s, dest='es', src='en')
+print(x.text)
