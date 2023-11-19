@@ -9,7 +9,7 @@ from google.cloud import speech
 
 # Audio recording parameters
 RATE = 16000
-CHUNK = int(RATE / 10)  # 100ms
+CHUNK = int(RATE / 1000)  # 100ms
 Flag = False # This flag is used to determine if the user is done speaking
 
 
