@@ -1,6 +1,6 @@
 import cv2 as cv
 import numpy as np
-import overlaymesh as om
+import scripts.overlaymesh as om
 import datetime as dt
 
 def video_stream():
