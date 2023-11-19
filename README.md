@@ -1,4 +1,5 @@
-# Using Computer Vision and AI to Overcome Language Barriers in real time
+# Communicate.AI
+## Using Computer Vision and AI to Overcome Language Barriers in real time
 
 _By Arnav Deol, James Ashworth, Ankit Mudunuri, Joseph Khalaf_
 
