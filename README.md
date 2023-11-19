@@ -3,7 +3,7 @@
 _By Arnav Deol, James Ashworth, Ankit Mudunuri, Joseph Khalaf_
 
 ###To install the project, download all files and run:
-    pip install -r requirements.txt
+    - pip install -r requirements.txt
 
 </br>
 
