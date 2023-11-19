@@ -1,7 +1,12 @@
 from googletrans import Translator
 import queue
-import audio_in.py as a_in
+import sys
+mainpath = __file__.replace("/Translator/translator.py", "/")
+analyzepath = __file__.replace("/Translator/translator.py", "/Analyze")
+sys.path.append(mainpath)
+sys.path.append(analyzepath)
 import config as cfg
+import audio_in as a_in
 
 
 def languager(text: str) -> str:
@@ -22,6 +27,8 @@ def main(q:queue.Queue(), on:bool) -> None:
             phrase = q.get()
             newqueue = languager(phrase)
             return newqueue
+        
+        
 
         
     
