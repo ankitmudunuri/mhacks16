@@ -1,29 +1,29 @@
 from googletrans import Translator
 import queue
 import sys
-path = __file__.replace("/Translator/translator.py", "/Analyze")
-sys.path.append(path)
+mainpath = __file__.replace("/Translator/translator.py", "/")
+analyzepath = __file__.replace("/Translator/translator.py", "/Analyze")
+sys.path.append(mainpath)
+sys.path.append(analyzepath)
 import config as cfg
 import audio_in as a_in
+
 
 def languager(text: str) -> str:
     translator = Translator()
     return translator.translate(text, cfg.translator_languages['dest_lang'],cfg.translator_languages['init_lang']).text
 
-def enqueue(q: queue.Queue, text: str) -> None:
-    q.put(text)
     
     
-def main(q:queue.Queue(), on:bool) -> None:
-    newqueue = queue.Queue()
+def main(old_q:queue.Queue(), newqueue:queue.Queue(), on:bool) -> None:
     while True:
         if not on:
             break
         else:
-            newqueue = languager(q.get())
-            phrase = q.get()
-            newqueue = languager(phrase)
-            return newqueue
+            phrase = old_q.get()
+            newqueue.put(languager(phrase))
+        
+        
 
         
     
