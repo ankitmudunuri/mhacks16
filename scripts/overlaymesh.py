@@ -2,6 +2,11 @@ import queue as Queue
 import cv2 as cv
 import datetime as dt
 
+RGB_TUPLE = (0,0,0)
+FONT_CHOICE = cv.FONT_HERSHEY_SIMPLEX
+FONT_SCALE = 1.1
+FONT_THICKNESS = 2
+
 def SpeechForBox(q, char_limit):
     cur_string = ""
     char_count = 0
@@ -24,9 +29,9 @@ def OverlayMesh(frame, coords, p_bottom, cs, out_of_frame, start_time):
     if len(coords) > 0:
         for (x, y, w, h) in coords:
 
-            if (y+h+40) > 480:
+            if (y+h+80) > 480:
                 p_bottom = False
-            if (y-40) < 0:
+            if (y-60) < 0:
                 p_bottom = True
 
             if (x > (cs[0] + 10) or x < (cs[0] - 10)) or (y > (cs[1] + 10) or y < (cs[1] - 10)):
@@ -38,32 +43,32 @@ def OverlayMesh(frame, coords, p_bottom, cs, out_of_frame, start_time):
                         out_of_frame = False
                         start_time = dt.datetime.now()
                         if p_bottom:
-                            cv.putText(frame, 'Bottom', (int((2*cs[0] + cs[2])/2), int((cs[1]+cs[3]) + 20)), cv.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+                            cv.putText(frame, 'Bottom dlfkjsdkl', (int((cs[0])/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                         else:
-                            cv.putText(frame, 'Top', (int((2*cs[0] + cs[2])/2), int((cs[1]) - 20)), cv.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+                            cv.putText(frame, 'Top', (int((cs[0])/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                     else:
                         if p_bottom:
-                            cv.putText(frame, 'Bottom', (int((2*cs[0] + cs[2])/2), int((cs[1]+cs[3]) + 20)), cv.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+                            cv.putText(frame, 'Bottom dlfkjsdkl', (int((cs[0])/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                         else:
-                            cv.putText(frame, 'Top', (int((2*cs[0] + cs[2])/2), int((cs[1]) - 20)), cv.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+                            cv.putText(frame, 'Top', (int((cs[0])/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                 else:
                     start_time = dt.datetime.now()
                     if p_bottom:
-                        cv.putText(frame, 'Bottom', (int((2*cs[0] + cs[2])/2), int((cs[1]+cs[3]) + 20)), cv.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+                        cv.putText(frame, 'Bottom dlfkjsdkl', (int((cs[0])/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                     else:
-                        cv.putText(frame, 'Top', (int((2*cs[0] + cs[2])/2), int((cs[1]) - 20)), cv.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+                        cv.putText(frame, 'Top', (int((cs[0])/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                     out_of_frame = False
             else:
                 if p_bottom:
-                    cv.putText(frame, 'Bottom', (int((2*cs[0] + cs[2])/2), int((cs[1]+cs[3]) + 20)), cv.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+                    cv.putText(frame, 'Bottom dlfkjsdkl', (int((cs[0])/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                 else:
-                    cv.putText(frame, 'Top', (int((2*cs[0] + cs[2])/2), int((cs[1]) - 20)), cv.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+                    cv.putText(frame, 'Top', (int((cs[0])/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
                 out_of_frame = False
     else:
         if p_bottom:
-            cv.putText(frame, 'Bottom', (int((2*cs[0] + cs[2])/2), int((cs[1]+cs[3]) + 20)), cv.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+            cv.putText(frame, 'Bottom dlfkjsdkl', (int((cs[0])/2), int((cs[1]+cs[3]) + 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
         else:
-            cv.putText(frame, 'Top', (int((2*cs[0] + cs[2])/2), int((cs[1]) - 20)), cv.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+            cv.putText(frame, 'Top', (int((cs[0])/2), int((cs[1]) - 20)), FONT_CHOICE, FONT_SCALE, RGB_TUPLE, FONT_THICKNESS)
     
     return frame, p_bottom, cs, out_of_frame, start_time
 
