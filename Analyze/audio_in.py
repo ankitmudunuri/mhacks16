@@ -112,25 +112,14 @@ class MicrophoneStream:
             yield b"".join(data)
 
 
-def listen_print_loop(responses: object) -> str:
+def listen_print_loop(responses: object, ThreadQueue: queue.Queue()) -> str:
     """Iterates through server responses and prints them.
     """
-    
-    count = 100
-    check = 0
     for response in responses:
-        print(response.results[0].alternatives[0].transcript)
-        check += 1
-        if check == count:
-            break
-    
-def response_to_sentence(responses: object):
-    pass
+        ThreadQueue.put(response.results[0].alternatives[0].transcript)
     
 
-
-
-def main() -> None:
+def main(ThreadedQueue: queue.Queue()) -> None:
     """Transcribe speech from audio file."""
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
@@ -156,8 +145,8 @@ def main() -> None:
 
         responses = client.streaming_recognize(streaming_config, requests)
 
-        # Now, put the transcription responses to use.
-        return responses
+        listen_print_loop(responses, ThreadedQueue)
+
 
 
 if __name__ == "__main__":
