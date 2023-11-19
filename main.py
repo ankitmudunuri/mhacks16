@@ -47,14 +47,20 @@ def main():
             now = datetime.datetime.now()
             if (now - start_time).microseconds > 50000:
                 text = str(ttq.get())
+                print(abs(length - len(text.split(" "))))
+                print("^first")
+                print(len(text.split(" ")))
+                print("^second")
                 if len(text.split(" ")) > 6 and abs(length - len(text.split(" "))) >= 1 and len(text) != 0:
                     text = text.split(" ")
                     length = len(text)
                     text = " ".join(text[-6:])
                     
+                    
                 start_time = datetime.datetime.now()
             else:
                 pass
+        
         f_rec.video_stream(frame, True, text, p_bottom, cs, out_of_frame, start_time)
         if cv.waitKey(1) & 0xFF == ord('q'):
             t1.join()
