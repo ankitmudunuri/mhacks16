@@ -4,11 +4,12 @@ import overlaymesh as om
 import datetime as dt
 import queue
 
-def video_stream(vid,tq: queue.Queue(), OnSwitch: bool):
+def video_stream(tq: queue.Queue(), OnSwitch: bool):
     """
     Creates a video stream using openCV
     :return: Active video stream with translated text output tracking user's face
     """
+    vid = cv.VideoCapture(0)
     
     face_classifier = cv.CascadeClassifier(cv.data.haarcascades + "haarcascade_frontalface_alt.xml")
 

@@ -26,9 +26,8 @@ def main():
     # t2 = Text Translation
     t2 = Thread(target=translate.main, args=(atq,ttq))
     # t3 = Overlay Mesh Map
-    vid = cv.VideoCapture(0)
     time.sleep(5)
-    t3 = Thread(target=f_rec.video_stream, args=(vid,ttq,OnSwitch))
+    t3 = Thread(target=f_rec.video_stream, args=(ttq,OnSwitch))
     t1.start()
     t2.start()
     t3.start()
